@@ -1,0 +1,11 @@
+* From: IRQDisk TODO
+* Experiment with diffetent interleave in emulation and real drive, to find the best file interleave for speed.
+	C:\Users\marti\Downloads\vice-emu-code-r44576-trunk-vice\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-iec.c
+		iec_write_sequential
+			retval = vdrive_bam_alloc_next_free_sector(vdrive, &t_new, &s_new);
+	C:\Users\marti\Downloads\vice-emu-code-r44576-trunk-vice\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-bam.c
+		vdrive_bam_get_interleave
+	>> Either create a tool to produce all the different 256 byte blocks from a file...
+	>> Or update C1541 to set the interleave based on a command...
+
+
