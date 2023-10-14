@@ -101,7 +101,7 @@ static void _vte_debug_print(guint flags, const char *fmt, ...)
 }
 #endif
 #else
-#define _vte_debug_print(args...) do { } while(0)
+//#define _vte_debug_print(args) do { } while(0)
 #endif /* VTE_DEBUG */
 
 G_END_DECLS

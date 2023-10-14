@@ -29,7 +29,7 @@
 #define VICE_GTK_H
 
 /* Override some of gtk.h */
-#include_next <gtk/gtk.h>
+#include <gtk/gtk.h>
 #include "vice_gtk3_locking.h"
 
 #endif

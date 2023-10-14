@@ -5787,3 +5787,5 @@ static int pwd_cmd(int nargs, char **args)
     printf("%s\n", buffer);
     return FD_OK;
 }
+
+struct diskunit_context_s *diskunit_context[NUM_DISK_UNITS];

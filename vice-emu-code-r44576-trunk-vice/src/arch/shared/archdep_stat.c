@@ -35,7 +35,7 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include "archdep_stat.h"
 
@@ -65,7 +65,7 @@ int archdep_stat(const char *path, size_t *len, unsigned int *isdir)
         *len = statbuf.st_size;
     }
     if (isdir != NULL) {
-        *isdir = S_ISDIR(statbuf.st_mode);
+		*isdir = 0;// S_ISDIR(statbuf.st_mode);
     }
     return 0;
 }

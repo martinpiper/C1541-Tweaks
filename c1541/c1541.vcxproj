@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\alarm.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\archdep.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_access.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_boot_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_cbmfont.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_chdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_close.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_create_user_cache_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_create_user_config_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_create_user_state_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_current_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_autostart_disk_image_file_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_fliplist_file_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_logfile.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_logger.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_portable_resource_file_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_resource_file_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_rtc_file_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_default_sysfile_pathlist.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_exit.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_expand_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_fdopen.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_filename_parameter.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_file_exists.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_file_is_blockdev.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_file_is_chardev.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_file_size.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_fix_permissions.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_fix_streams.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_fseeko.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_ftello.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_getcwd.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_current_drive.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_hvsc_dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_runtime_info.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_vice_datadir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_vice_docsdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_vice_drivesdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_vice_hotkeysdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_get_vice_machinedir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_home_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_icon_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_is_haiku.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_is_macos_bindist.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_is_windows_nt.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_kbd_get_host_mapping.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_list_drives.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_make_backup_filename.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_mkdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_mkstemp_fd.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_open_default_log_file.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_path_is_relative.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_program_name.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_program_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_quote_parameter.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_quote_unzip.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_rawnet_capability.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_real_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_remove.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_rename.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_require_vkbd.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_rmdir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_rtc_get_centisecond.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_sanitize_filename.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_set_current_drive.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_set_openmp_wait_policy.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_signals.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_sound.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_spawn.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_startup_log_error.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_stat.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_tick.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_tmpnam.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_user_cache_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_user_config_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_user_state_path.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_usleep.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\archdep_xdg.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\console.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\coproc.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\dynlib.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\arch\shared\signals.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\c1541-stubs.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\c1541.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\cbmdos.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\cbmimage.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\charset.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\diskimage.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-check.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-create.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-dxx.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-gcr.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-p64.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-probe.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\realimage.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\drive\rotation.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\fileio\cbmfile.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\fileio\fileio.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\fileio\p00.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\findpath.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\gcr.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents-block.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents-iec.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\imagecontents.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\tapecontents.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\info.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\lib.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\lib\linenoise-ng\ConvertUTF.cpp" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\lib\linenoise-ng\linenoise.cpp" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\lib\linenoise-ng\wcwidth.cpp" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\lib\p64\p64.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\log.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\rawfile.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\resources.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\fsdrive.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\serial-device.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\serial-iec-bus.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\serial-iec-lib.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\serial-iec.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\serial\serial-realdevice.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\sysfile.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\tape\t64.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\tape\tap.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\tape\tape-internal.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\tape\tapeimage.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\util.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-bam.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-command.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-dir.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-iec.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-internal.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-rel.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-snapshot.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\zfile.c" />
+    <ClCompile Include="..\vice-emu-code-r44576-trunk-vice\src\zipcode.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\glib-main\glib\glibconfig.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\config.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-check.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-create.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-dxx.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-gcr.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-p64.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage-probe.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\fsimage.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\realimage.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\diskimage\x64.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\drive\iec.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\drive\iec\via1d1541.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents-block.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents-iec.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\diskcontents.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\imagecontents\tapecontents.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-bam.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-command.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-dir.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-iec.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-internal.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-rel.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-snapshot.h" />
+    <ClInclude Include="..\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive.h" />
+    <ClInclude Include="infocontrib.h" />
+    <ClInclude Include="version.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{5F778E5B-7374-4211-805A-E882713B281D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>c1541</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\;..\vice-emu-code-r44576-trunk-vice;..\vice-emu-code-r44576-trunk-vice\src;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\;..\vice-emu-code-r44576-trunk-vice\src\drive\;..\vice-emu-code-r44576-trunk-vice\src\core\rtc\;..\vice-emu-code-r44576-trunk-vice\src\lib\p64\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\novte\;..\glib-main\glib\;..\glib-main\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\;..\vice-emu-code-r44576-trunk-vice\src\arch\systemheaderoverride\;..\vice-emu-code-r44576-trunk-vice\src\vdrive\;..\vice-emu-code-r44576-trunk-vice\src\diskimage\;..\vice-emu-code-r44576-trunk-vice\src\imagecontents\;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\hotkeys\;..\vice-emu-code-r44576-trunk-vice\src\datasette\;..\vice-emu-code-r44576-trunk-vice\src\drive\iec\c64exp\;..\vice-emu-code-r44576-trunk-vice\src\joyport\;..\vice-emu-code-r44576-trunk-vice\src\userport\;..\vice-emu-code-r44576-trunk-vice\src\monitor\;..\vice-emu-code-r44576-trunk-vice\src\c64\cart\;..\vice-emu-code-r44576-trunk-vice\src\fsdevice\;..\vice-emu-code-r44576-trunk-vice\src\printerdrv\;..\vice-emu-code-r44576-trunk-vice\src\samplerdrv\;..\vice-emu-code-r44576-trunk-vice\src\tapeport\;..\vice-emu-code-r44576-trunk-vice\src\tape\;..\vice-emu-code-r44576-trunk-vice\src\vicii\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\;..\vice-emu-code-r44576-trunk-vice;..\vice-emu-code-r44576-trunk-vice\src;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\;..\vice-emu-code-r44576-trunk-vice\src\drive\;..\vice-emu-code-r44576-trunk-vice\src\core\rtc\;..\vice-emu-code-r44576-trunk-vice\src\lib\p64\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\novte\;..\glib-main\glib\;..\glib-main\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\;..\vice-emu-code-r44576-trunk-vice\src\arch\systemheaderoverride\;..\vice-emu-code-r44576-trunk-vice\src\vdrive\;..\vice-emu-code-r44576-trunk-vice\src\diskimage\;..\vice-emu-code-r44576-trunk-vice\src\imagecontents\;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\hotkeys\;..\vice-emu-code-r44576-trunk-vice\src\datasette\;..\vice-emu-code-r44576-trunk-vice\src\drive\iec\c64exp\;..\vice-emu-code-r44576-trunk-vice\src\joyport\;..\vice-emu-code-r44576-trunk-vice\src\userport\;..\vice-emu-code-r44576-trunk-vice\src\monitor\;..\vice-emu-code-r44576-trunk-vice\src\c64\cart\;..\vice-emu-code-r44576-trunk-vice\src\fsdevice\;..\vice-emu-code-r44576-trunk-vice\src\printerdrv\;..\vice-emu-code-r44576-trunk-vice\src\samplerdrv\;..\vice-emu-code-r44576-trunk-vice\src\tapeport\;..\vice-emu-code-r44576-trunk-vice\src\tape\;..\vice-emu-code-r44576-trunk-vice\src\vicii\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\;..\vice-emu-code-r44576-trunk-vice;..\vice-emu-code-r44576-trunk-vice\src;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\;..\vice-emu-code-r44576-trunk-vice\src\drive\;..\vice-emu-code-r44576-trunk-vice\src\core\rtc\;..\vice-emu-code-r44576-trunk-vice\src\lib\p64\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\novte\;..\glib-main\glib\;..\glib-main\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\;..\vice-emu-code-r44576-trunk-vice\src\arch\systemheaderoverride\;..\vice-emu-code-r44576-trunk-vice\src\vdrive\;..\vice-emu-code-r44576-trunk-vice\src\diskimage\;..\vice-emu-code-r44576-trunk-vice\src\imagecontents\;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\hotkeys\;..\vice-emu-code-r44576-trunk-vice\src\datasette\;..\vice-emu-code-r44576-trunk-vice\src\drive\iec\c64exp\;..\vice-emu-code-r44576-trunk-vice\src\joyport\;..\vice-emu-code-r44576-trunk-vice\src\userport\;..\vice-emu-code-r44576-trunk-vice\src\monitor\;..\vice-emu-code-r44576-trunk-vice\src\c64\cart\;..\vice-emu-code-r44576-trunk-vice\src\fsdevice\;..\vice-emu-code-r44576-trunk-vice\src\printerdrv\;..\vice-emu-code-r44576-trunk-vice\src\samplerdrv\;..\vice-emu-code-r44576-trunk-vice\src\tapeport\;..\vice-emu-code-r44576-trunk-vice\src\tape\;..\vice-emu-code-r44576-trunk-vice\src\vicii\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\;..\vice-emu-code-r44576-trunk-vice;..\vice-emu-code-r44576-trunk-vice\src;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\;..\vice-emu-code-r44576-trunk-vice\src\drive\;..\vice-emu-code-r44576-trunk-vice\src\core\rtc\;..\vice-emu-code-r44576-trunk-vice\src\lib\p64\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\novte\;..\glib-main\glib\;..\glib-main\;..\vice-emu-code-r44576-trunk-vice\src\arch\gtk3\;..\vice-emu-code-r44576-trunk-vice\src\arch\systemheaderoverride\;..\vice-emu-code-r44576-trunk-vice\src\vdrive\;..\vice-emu-code-r44576-trunk-vice\src\diskimage\;..\vice-emu-code-r44576-trunk-vice\src\imagecontents\;..\vice-emu-code-r44576-trunk-vice\src\arch\shared\hotkeys\;..\vice-emu-code-r44576-trunk-vice\src\datasette\;..\vice-emu-code-r44576-trunk-vice\src\drive\iec\c64exp\;..\vice-emu-code-r44576-trunk-vice\src\joyport\;..\vice-emu-code-r44576-trunk-vice\src\userport\;..\vice-emu-code-r44576-trunk-vice\src\monitor\;..\vice-emu-code-r44576-trunk-vice\src\c64\cart\;..\vice-emu-code-r44576-trunk-vice\src\fsdevice\;..\vice-emu-code-r44576-trunk-vice\src\printerdrv\;..\vice-emu-code-r44576-trunk-vice\src\samplerdrv\;..\vice-emu-code-r44576-trunk-vice\src\tapeport\;..\vice-emu-code-r44576-trunk-vice\src\tape\;..\vice-emu-code-r44576-trunk-vice\src\vicii\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
