@@ -1,0 +1,5 @@
+* Build in MSVC, compare this new build with Vice release for binary match...
+	cd /d C:\Work\C64\IRQDisk
+	C:\Users\marti\Downloads\GTK3VICE-3.7.1-win32-r43776\GTK3VICE-3.7.1-win32-r43776\bin\c1541.exe -attach test.d64 -format test,67 -write TestIRQDisk.prg testirqdisk -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.prg screen3 -write TESTSAVE.PRG testsave
+	c:\work\C1541-Tweaks\c1541\Debug\c1541.exe -attach test2.d64 -format test,67 -write TestIRQDisk.prg testirqdisk -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.prg screen3 -write TESTSAVE.PRG testsave
+	>> Done
