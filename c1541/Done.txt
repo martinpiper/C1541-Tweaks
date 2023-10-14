@@ -3,3 +3,63 @@
 	C:\Users\marti\Downloads\GTK3VICE-3.7.1-win32-r43776\GTK3VICE-3.7.1-win32-r43776\bin\c1541.exe -attach test.d64 -format test,67 -write TestIRQDisk.prg testirqdisk -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.prg screen3 -write TESTSAVE.PRG testsave
 	c:\work\C1541-Tweaks\c1541\Debug\c1541.exe -attach test2.d64 -format test,67 -write TestIRQDisk.prg testirqdisk -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.prg screen3 -write TESTSAVE.PRG testsave
 	>> Done
+
+
+
+* From: IRQDisk TODO
+* Experiment with diffetent interleave in emulation and real drive, to find the best file interleave for speed.
+	C:\Users\marti\Downloads\vice-emu-code-r44576-trunk-vice\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-iec.c
+		iec_write_sequential
+			retval = vdrive_bam_alloc_next_free_sector(vdrive, &t_new, &s_new);
+	C:\Users\marti\Downloads\vice-emu-code-r44576-trunk-vice\vice-emu-code-r44576-trunk-vice\src\vdrive\vdrive-bam.c
+		vdrive_bam_get_interleave
+	>> Either create a tool to produce all the different 256 byte blocks from a file...
+	>> Or update C1541 to set the interleave based on a command...
+		> command_list in src\c1541.c
+* Validate: c:\work\C1541-Tweaks\c1541\Debug\c1541.exe -attach test2.d64 -chain "screen1"
+	(17, 8) -> (17, 9) -> (17,10) -> (17,11) -> 241
+
+* Testing in Vice x64sc
+	break 803b
+		= C64\IRQDisk\TestIRQDisk.a : .repeatLoad
+	x (run through a whole load cycle once)
+	sw reset
+	x
+	sw
+
+	-interleave 1
+	27302316	(cycles between breakpoint at 803b)
+
+	-interleave 2
+	28205313
+
+	-interleave 3
+	29265260
+
+	-interleave 4
+	30408933
+
+	-interleave 5
+	31457078
+
+	-interleave 6
+	32593692
+
+	-interleave 7
+	33853370
+
+	-interleave 8
+	33480059
+
+	-interleave 9
+	34598036
+
+	-interleave 10
+	35951278
+
+	-interleave 11
+	37983312
+
+	>> In emulation at least the "-interleave 1" option produces a much faster loading disk
+		Testing in Vice x64sc shows "-interleave 1" is much faster than "-interleave 10" when using IRQDisk in two-bit transfer mode.
+
