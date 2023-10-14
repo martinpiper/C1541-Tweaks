@@ -192,6 +192,10 @@
     <None Include="..\.gitignore" />
     <None Include="..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Done.txt" />
+    <Text Include="TODO.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5F778E5B-7374-4211-805A-E882713B281D}</ProjectGuid>

@@ -53,6 +53,7 @@ int vdrive_bam_allocate_chain(struct vdrive_s *vdrive, unsigned int t, unsigned 
 int vdrive_bam_allocate_chain_255(struct vdrive_s *vdrive, unsigned int t, unsigned int s);
 int vdrive_bam_alloc_first_free_sector(struct vdrive_s *vdrive, unsigned int *track,
                                        unsigned int *sector);
+int vdrive_bam_set_interleave_override(int sectorStep);
 int vdrive_bam_alloc_next_free_sector(struct vdrive_s *vdrive, unsigned int *track,
                                       unsigned int *sector);
 int vdrive_bam_alloc_next_free_sector_interleave(struct vdrive_s *vdrive, unsigned int *track,

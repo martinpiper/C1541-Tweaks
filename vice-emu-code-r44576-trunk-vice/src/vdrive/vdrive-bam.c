@@ -179,9 +179,19 @@ static int vdrive_calculate_disk_half(vdrive_t *vdrive)
     return -1;
 }
 
+static int sInterleaveOverride = 0;
+int vdrive_bam_set_interleave_override(int sectorStep)
+{
+	sInterleaveOverride = sectorStep;
+}
 /* lookup interleave value for supported drive types */
 static int vdrive_bam_get_interleave(vdrive_t *vdrive)
 {
+	if (sInterleaveOverride > 0)
+	{
+		return sInterleaveOverride;
+	}
+
     /* Note: Values for 2040/8050/8250 determined empirically */
     switch (vdrive->image_format) {
         case VDRIVE_IMAGE_FORMAT_1541:

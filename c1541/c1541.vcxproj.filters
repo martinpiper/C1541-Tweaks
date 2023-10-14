@@ -520,4 +520,8 @@
     <None Include="..\.gitignore" />
     <None Include="..\README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="TODO.txt" />
+    <Text Include="Done.txt" />
+  </ItemGroup>
 </Project>

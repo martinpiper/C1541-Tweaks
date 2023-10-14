@@ -187,6 +187,7 @@ static int translate_fsimage_error(int err);
 /* command handlers */
 static int attach_cmd(int nargs, char **args);
 static int bam_cmd(int nargs, char **args);
+static int interleave_cmd(int nargs, char **args);
 static int bcopy_cmd(int nargs, char **args);
 static int bfill_cmd(int nargs, char **args);
 static int block_cmd(int nargs, char **args);
@@ -296,6 +297,11 @@ const command_t command_list[] = {
       "<track-max>",
       0, 3,
       bam_cmd },
+	{ "interleave",
+	  "interleave <sector step>",
+	  "Sets the sector interleave, default is 0 which uses the default value for the drive type.",
+	  1, 1,
+	  interleave_cmd },
     { "bcopy",
       "bcopy <src-track> <src-sector> <dst-track> <dst-sector> [<src-unit> "
       "[<dst-unit>]]",
@@ -1502,6 +1508,28 @@ static int bam_cmd(int nargs, char **args)
     bam_print_sector_header(max_sectors);
     bam_print_tracks(vdrive, track_min, track_max);
     return FD_OK;
+}
+
+/** \brief  Sets the sector interleave
+ *
+ * Syntax:
+ *
+ * \param[in]   nargs   argument count
+ * \param[in]   args    argument list
+ *
+ * \return  FD_OK on success, < 0 on failure
+ */
+static int interleave_cmd(int nargs, char **args)
+{
+	if (nargs >= 1)
+	{
+		int sectorStep;
+		arg_to_int(args[1], &sectorStep);
+		vdrive_bam_set_interleave_override(sectorStep);
+		return FD_OK;
+	}
+
+	return -1;
 }
 
 
