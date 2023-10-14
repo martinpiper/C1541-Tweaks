@@ -7,6 +7,8 @@
 #define VERSION_RC_NUMBER 1,2,3,4
 #define HAVE_INTTYPES_H
 #define HAVE_OFF_T_IN_SYS_TYPES
+#define WINDOWS_COMPILE
+#define G_OS_WIN32
 
 #define DEBUG_IEC_DRV_WRITE(x)
 #define DEBUG_IEC_BUS_WRITE(x)

@@ -39,6 +39,8 @@
 
 #include "archdep_stat.h"
 
+// Hack: From: glib\tests\fileutils.c
+#define S_ISDIR(m) (((m) & _S_IFMT) == _S_IFDIR)
 
 /** \brief  Determine the size of \a path and whether it's a directory
  *
@@ -65,7 +67,7 @@ int archdep_stat(const char *path, size_t *len, unsigned int *isdir)
         *len = statbuf.st_size;
     }
     if (isdir != NULL) {
-		*isdir = 0;// S_ISDIR(statbuf.st_mode);
+		*isdir = S_ISDIR(statbuf.st_mode);
     }
     return 0;
 }

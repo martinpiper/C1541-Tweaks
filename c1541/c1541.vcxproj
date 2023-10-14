@@ -188,6 +188,10 @@
     <ClInclude Include="infocontrib.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\README.md" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5F778E5B-7374-4211-805A-E882713B281D}</ProjectGuid>
