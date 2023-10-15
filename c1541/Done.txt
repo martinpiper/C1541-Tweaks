@@ -60,6 +60,24 @@
 	-interleave 11
 	37983312
 
-	>> In emulation at least the "-interleave 1" option produces a much faster loading disk
-		Testing in Vice x64sc shows "-interleave 1" is much faster than "-interleave 10" when using IRQDisk in two-bit transfer mode.
+	-interleave 12
+	37799219
 
+	-interleave 13
+	38507282
+
+	-interleave 14
+	30329839
+
+	-interleave 15
+	20757737
+
+	-interleave 16
+	21825222
+
+	-interleave 17
+	22972894
+
+	>> In emulation at least the "-interleave 15" option produces a much faster loading disk
+		Testing in Vice x64sc shows "-interleave 15" is much faster than "-interleave 10" when using IRQDisk in two-bit transfer mode.
+		> 57.7%
