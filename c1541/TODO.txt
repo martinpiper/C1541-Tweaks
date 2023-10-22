@@ -1,0 +1,17 @@
+; -attach test2.d64 -format test,67 -write TestIRQDisk.prg testirqdisk -write screen1.prg screen1 -write screen2.prg screen2 -write screen3.prg screen3 -write TESTSAVE.PRG testsave
+; C:\Work\C64\IRQDisk
+
+* Using this file: "E:\C64_Preservation_Project_10th_Anniversary_Collection_G64\c64pp-g64-zip\f\flying_shark[firebird_1987](pal)(!).g64"
+	The info command incorrectly displays 35 tracks, there are actually 39
+		disk format  : 1541
+		track count  : 35
+		error block  : No
+		write protect: Off
+	> Using: https://ist.uwaterloo.ca/~schepers/formats/G64.TXT
+	> Use result from: image->tracks
+		>> image->tracks = header[9] / 2;
+
+
+
+* Enhance bpeek / bpoke to handle raw GCR bytes
+	Or create gcrpeek / gcrpoke alternatives
