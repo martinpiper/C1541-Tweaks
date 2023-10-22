@@ -311,8 +311,8 @@ int fsimage_gcr_read_sector(const disk_image_t *image, uint8_t *buf, const disk_
     }
     if (rf != CBMDOS_FDC_ERR_OK) {
         log_error(fsimage_gcr_log,
-                  "Cannot find track: %u sector: %u within GCR image.",
-                  dadr->track, dadr->sector);
+                  "Cannot find track: %u sector: %u within GCR image. Error %d",
+                  dadr->track, dadr->sector , rf);
         switch (rf) {
             case CBMDOS_FDC_ERR_HEADER:
                 return CBMDOS_IPE_READ_ERROR_BNF; /* 20 */

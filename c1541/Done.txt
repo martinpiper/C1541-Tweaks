@@ -95,3 +95,13 @@
 	> Use result from: image->tracks
 		>> image->tracks = header[9] / 2;
 	> When there is an image, it also shows: image tracks : xxx
+
+
+
+ * When using "flying_shark[firebird_1987](pal)(!).g64" and trying to bpeek 38 0 it doesn't report the error, it would be useful to show that
+	fsimage_gcr_read_sector
+	if (rf != CBMDOS_FDC_ERR_OK)
+	>> if (vdrive_read_sector(vdrive, buffer, track, sector) != 0) {
+		bpeek_cmd
+	>> Also add to: "Cannot find track: %u sector: %u within GCR image."
+	> Used: -attach "E:\C64_Preservation_Project_10th_Anniversary_Collection_G64\c64pp-g64-zip\f\flying_shark[firebird_1987](pal)(!).g64" -bpeek 38 0

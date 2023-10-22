@@ -6,9 +6,5 @@
 
 
 
- * When using "flying_shark[firebird_1987](pal)(!).g64" and trying to bpeek 38 0 it doesn't report the error, it would be useful to show that
-	fsimage_gcr_read_sector
-	if (rf != CBMDOS_FDC_ERR_OK)
-	>> if (vdrive_read_sector(vdrive, buffer, track, sector) != 0) {
-		bpeek_cmd
+* Add specific error for fsimage_gcr_read_sector fsimage_gcr_read_track failure
 

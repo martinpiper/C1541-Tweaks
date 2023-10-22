@@ -167,6 +167,8 @@ static int drive_index = 0;
 static int interactive_mode = 0;
 
 
+static int lasterror = 0;
+
 /*
  * forward declaration of functions
  */
@@ -1963,8 +1965,8 @@ static int bpeek_cmd(int nargs, char **args)
 
     /* read block */
     vdrive = drives[unit - DRIVE_UNIT_MIN];
-    if (vdrive_read_sector(vdrive, buffer, track, sector) != 0) {
-        fprintf(stderr, "cannot read track %u sector %u.", track, sector);
+    if ((lasterror = vdrive_read_sector(vdrive, buffer, track, sector)) != 0) {
+        fprintf(stderr, "cannot read track %u sector %u. Last error %d ", track, sector, lasterror);
         return FD_RDERR;
     }
 
