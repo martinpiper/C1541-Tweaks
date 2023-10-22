@@ -6,5 +6,5 @@
 
 
 
-* Add specific error for fsimage_gcr_read_sector fsimage_gcr_read_track failure
-
+* Add comand to interrogate the image for available raw data and GCR blocks
+	Like BAM but better.

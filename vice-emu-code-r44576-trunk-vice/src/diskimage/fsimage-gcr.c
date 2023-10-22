@@ -299,7 +299,10 @@ int fsimage_gcr_read_sector(const disk_image_t *image, uint8_t *buf, const disk_
     if (image->gcr == NULL) {
         disk_track_t raw;
         if (fsimage_gcr_read_track(image, dadr->track, &raw) < 0) {
-            return -1;
+			log_error(fsimage_gcr_log,
+				"Track %u cannot read GCR track.",
+				dadr->track);
+			return -1;
         }
         if (raw.data == NULL) {
             return CBMDOS_IPE_NOT_READY;
