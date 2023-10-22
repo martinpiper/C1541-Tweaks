@@ -3326,7 +3326,11 @@ static int info_cmd(int nargs, char **args)
     printf("disk format  : %s\n", format_name);
     /* printf("Sides\t   : %d.\n", hdr.sides);*/
     printf("track count  : %u\n", vdrive->num_tracks);
-    if (vdrive->image->device == DISK_IMAGE_DEVICE_FS) {
+	if (vdrive->image)
+	{
+		printf("image tracks : %u\n", vdrive->image->tracks);
+	}
+	if (vdrive->image->device == DISK_IMAGE_DEVICE_FS) {
         printf("error block  : %s\n",
                 ((vdrive->image->media.fsimage)->error_info.map)
                 ? "Yes" : "No");
