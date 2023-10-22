@@ -2,3 +2,4 @@
  Tweaks to C1541 to support extra features
 
  * Added interleave option: https://sourceforge.net/p/vice-emu/feature-requests/470/
+ * When there is an image, the info command also shows: image tracks : xxx

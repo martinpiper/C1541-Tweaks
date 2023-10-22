@@ -94,13 +94,4 @@
 	> Using: https://ist.uwaterloo.ca/~schepers/formats/G64.TXT
 	> Use result from: image->tracks
 		>> image->tracks = header[9] / 2;
-
-
-
-
-* When using "flying_shark[firebird_1987](pal)(!).g64" and trying to bpeek 38 0 it doesn't report the error, it would be useful to show that
-	fsimage_gcr_read_sector
-	if (rf != CBMDOS_FDC_ERR_OK)
-	>> if (vdrive_read_sector(vdrive, buffer, track, sector) != 0) {
-		bpeek_cmd
 	> When there is an image, it also shows: image tracks : xxx
