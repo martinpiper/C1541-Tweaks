@@ -34,6 +34,7 @@
 #include "diskimage.h"
 #include "fsimage-dxx.h"
 #include "fsimage-gcr.h"
+#include "gcr.h"
 #include "fsimage-p64.h"
 #include "fsimage-probe.h"
 #include "fsimage.h"
@@ -285,6 +286,46 @@ int fsimage_write_sector(disk_image_t *image, const uint8_t *buf,
             return -1;
     }
     return 0;
+}
+
+int fsimage_read_gcr_track(const disk_image_t *image, uint8_t *buf, const unsigned int track, int *outSize)
+{
+	struct disk_track_s diskTrack;
+	fsimage_t *fsimage;
+	int ret;
+
+	fsimage = image->media.fsimage;
+
+	if (fsimage == NULL || fsimage->fd == NULL) {
+		log_error(fsimage_log, "Attempt to read without disk image.");
+		return CBMDOS_IPE_NOT_READY;
+	}
+
+	switch (image->type) {
+	case DISK_IMAGE_TYPE_G64:
+	case DISK_IMAGE_TYPE_G71:
+		ret = fsimage_gcr_read_half_track(image, track << 1, &diskTrack);
+		*outSize = 0;
+		if (ret == 0)
+		{
+			memcpy(buf, diskTrack.data, diskTrack.size);
+			*outSize = diskTrack.size;
+		}
+		lib_free(diskTrack.data);
+		return ret;
+	default:
+		log_error(fsimage_log,
+			"Unknown disk image type %u.  Cannot read sector.",
+			image->type);
+		return CBMDOS_IPE_NOT_READY;
+	}
+}
+
+int fsimage_write_gcr_track(disk_image_t *image, const uint8_t *buf, const unsigned int track)
+{
+	// TODO
+	log_error(fsimage_log, "TODO: Cannot write GCR track, yet.");
+	return -1;
 }
 
 /*-----------------------------------------------------------------------*/

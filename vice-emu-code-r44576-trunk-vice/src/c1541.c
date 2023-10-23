@@ -197,6 +197,8 @@ static int bpeek_cmd(int nargs, char **args);
 static int bpoke_cmd(int nargs, char **args);
 static int bread_cmd(int nargs, char **args);
 static int bwrite_cmd(int nargs, char **args);
+static int gcrpeek_cmd(int nargs, char **args);
+static int gcrpoke_cmd(int nargs, char **args);
 static int cd_cmd(int nargs, char **args);
 static int chain_cmd(int nargs, char **args);
 static int copy_cmd(int nargs, char **args);
@@ -344,7 +346,17 @@ const command_t command_list[] = {
       "file system",
       3, 4,
       bwrite_cmd },
-    { "cd",
+	{ "gcrpeek",
+	  "gcrpeek [@<unit>:] <track> [<offset> [<end>]]",
+	  "Show GCR data of <track> from <offset> to <end>",
+	  2, 4,
+	  gcrpeek_cmd },
+	{ "gcrpoke",
+	  "gcrpoke [@<unit>:] <track> <offset> <data ...>",
+	  "Poke GCR <data> into block at (<track>), starting at <offset>",
+	  3, MAXARG,
+	  gcrpoke_cmd },
+	{ "cd",
       "cd <hostdir>",
       "Change current host directory path",
       1, 1,
@@ -1239,6 +1251,17 @@ static int parse_track_sector(const char *trk_str, const char *sec_str,
     }
     *sec_num = (unsigned int)tmp;
     return FD_OK;
+}
+
+static int parse_track(const char *trk_str, unsigned int *trk_num)
+{
+	int tmp;
+
+	if (arg_to_int(trk_str, &tmp) < 0 || tmp < 1) {
+		return FD_BAD_TRKNUM;
+	}
+	*trk_num = (unsigned int)tmp;
+	return FD_OK;
 }
 
 
@@ -2137,6 +2160,190 @@ static int bwrite_cmd(int nargs, char **args)
 
     return result;
 }
+
+
+
+/** \brief 'poke' some GCR data into a block
+ *
+ * Syntax: gcrpoke [unit-specifier] track offset data ...
+ *
+ * For example: `gcrpoke @11: 18 0 $55 $55 $55 $55 $55 $55 $55 $ff $ff $ff`
+ *
+ * \param[in]   nargs   argument count
+ * \param[in]   args    argument list
+ *
+ * \return  FD_OK, or < 0 on failure
+ */
+static int gcrpoke_cmd(int nargs, char **args)
+{
+	vdrive_t *vdrive;
+	int unit;
+	unsigned int track;
+	int offset;
+	int arg_idx = 1;
+	int err;
+	int i;
+	char *endptr;
+	unsigned char buffer[NUM_MAX_MEM_BYTES_TRACK];
+
+	/* first check for a unit number (@<unit>:) */
+	unit = extract_unit_from_file_name(args[arg_idx], &endptr);
+	if (unit == 0) {
+		/* use current unit */
+		unit = drive_index + DRIVE_UNIT_MIN;
+	}
+	else {
+		if (unit < 0) {
+			return FD_BADDEV;
+		}
+		arg_idx++;
+	}
+
+	err = parse_track(args[arg_idx], &track);
+	if (err < 0) {
+		return err;
+	}
+
+	if (arg_to_int(args[arg_idx + 2], &offset) < 0) {
+		return FD_BADVAL;
+	}
+#if 0
+	printf("gcrpoke_cmd(): unit #%d: (%2u), offset %d\n",
+		unit, track, offset);
+#endif
+	arg_idx += 2;
+
+	/* check drive ready */
+	if (check_drive_ready(unit - DRIVE_UNIT_MIN) < 0) {
+		return FD_NOTREADY;
+	}
+
+	vdrive = drives[unit - DRIVE_UNIT_MIN];
+	if (!vdrive->image)
+	{
+		fprintf(stderr, "Drive doesn't have an image");
+		return FD_RDERR;
+	}
+
+	/* get track data */
+	int outSize;
+	err = fsimage_read_gcr_track(vdrive->image, buffer, track, &outSize);
+	if (err < 0) {
+		return err;
+	}
+
+	i = offset;
+	while (i < outSize && i < RAW_BLOCK_SIZE && arg_idx < nargs) {
+		int b;
+		if (arg_to_int(args[arg_idx], &b) < 0) {
+			return FD_BADVAL;
+		}
+		buffer[i++] = (unsigned char)b;
+		arg_idx++;
+	}
+
+	/* write back block */
+	return fsimage_write_gcr_track(vdrive, buffer, track);
+}
+
+
+/** \brief 'peek' some GCR data from a block
+ *
+ * Syntax: gcrpeek [unit-specifier] track [start=0 [end=$ff]]
+ *
+ * For example: `gcrpeek @11: 18
+ *
+ * \param[in]   nargs   argument count
+ * \param[in]   args    argument list
+ *
+ * \return  FD_OK, or < 0 on failure
+ */
+static int gcrpeek_cmd(int nargs, char **args)
+{
+	vdrive_t *vdrive;
+	uint8_t buffer[NUM_MAX_MEM_BYTES_TRACK];
+	int unit;
+	unsigned int track;
+	int arg_idx = 1;
+	int err;
+	int start = 0;
+	int end = NUM_MAX_BYTES_TRACK;
+	char *endptr;
+	int outSize;
+
+	/* first check for a unit number (@<unit>:) */
+	unit = extract_unit_from_file_name(args[arg_idx], &endptr);
+	if (unit == 0) {
+		/* use current unit */
+		unit = drive_index + DRIVE_UNIT_MIN;
+	}
+	else {
+		if (unit < 0) {
+			return FD_BADDEV;
+		}
+		arg_idx++;
+	}
+
+	/* check track */
+	err = parse_track(args[arg_idx], &track);
+	if (err < 0) {
+		return err;
+	}
+
+	arg_idx += 1;
+
+	/* get start */
+	if (arg_idx >= nargs) {
+		/* default to 00-ff */
+	}
+	else {
+		if (arg_to_int(args[arg_idx], &start) < 0) {
+			return FD_BADVAL;
+		}
+		if (start < 0 || start > 0xff) {
+			return FD_BADVAL;
+		}
+		arg_idx++;
+
+		if (arg_idx < nargs) {
+			if (arg_to_int(args[arg_idx], &end) < 0) {
+				return FD_BADVAL;
+			}
+			if (end <= start || end > 0xff) {
+				return FD_BADVAL;
+			}
+		}
+	}
+	printf("unit #%d: (%u): $%02x-$%02x\n", unit, track, (unsigned int)start, (unsigned int)end);
+
+	/* read track */
+	vdrive = drives[unit - DRIVE_UNIT_MIN];
+	if (!vdrive->image)
+	{
+		fprintf(stderr, "Drive doesn't have an image");
+		return FD_RDERR;
+	}
+
+	if ((lasterror = fsimage_read_gcr_track(vdrive->image, buffer, track, &outSize)) != 0) {
+		fprintf(stderr, "cannot read track %u. Last error %d ", track, lasterror);
+		return FD_RDERR;
+	}
+
+	/* display data */
+	int i = start;
+	while (i <= end && i <= outSize) {
+		printf("%04x: ", (unsigned int)i);
+		for (int c = 0; c < 16 && i + c <= end; c++) {
+			printf(" %02x", buffer[i + c]);
+		}
+		putchar('\n');
+		i += 16;
+	}
+
+	return 0;
+}
+
+
 
 
 

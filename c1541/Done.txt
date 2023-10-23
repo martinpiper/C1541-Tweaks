@@ -110,3 +110,9 @@
 
 
 * Add specific error for fsimage_gcr_read_sector fsimage_gcr_read_track failure
+
+
+
+
+* Enhance bpeek / bpoke to handle raw GCR bytes
+	Or create gcrpeek / gcrpoke alternatives

@@ -59,6 +59,10 @@ int fsimage_read_sector(const struct disk_image_s *image, uint8_t *buf,
                         const struct disk_addr_s *dadr);
 int fsimage_write_sector(struct disk_image_s *image, const uint8_t *buf,
                          const struct disk_addr_s *dadr);
+
+int fsimage_read_gcr_track(const struct disk_image_s *image, uint8_t *buf, const unsigned int track, int *outSize);
+int fsimage_write_gcr_track(struct disk_image_s *image, const uint8_t *buf, const unsigned int track);
+
 off_t fsimage_size(const disk_image_t *image);
 
 #endif
