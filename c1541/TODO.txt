@@ -3,3 +3,7 @@
 
 * Add comand to interrogate the image for available raw data and GCR blocks
 	Like BAM but better.
+
+
+
+going to need an extra "extract file chain using track and sector start" in c1541
