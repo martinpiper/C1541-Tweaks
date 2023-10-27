@@ -116,3 +116,10 @@
 
 * Enhance bpeek / bpoke to handle raw GCR bytes
 	Or create gcrpeek / gcrpoke alternatives
+
+
+
+
+* going to need an extra "extract file chain using track and sector start" in c1541
+	Copy chain_cmd and add write to file
+	>> chainwrite command added

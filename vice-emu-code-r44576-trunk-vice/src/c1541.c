@@ -201,6 +201,7 @@ static int gcrpeek_cmd(int nargs, char **args);
 static int gcrpoke_cmd(int nargs, char **args);
 static int cd_cmd(int nargs, char **args);
 static int chain_cmd(int nargs, char **args);
+static int chainwrite_cmd(int nargs, char **args);
 static int copy_cmd(int nargs, char **args);
 static int delete_cmd(int nargs, char **args);
 static int entry_cmd(int nargs, char **args);
@@ -366,7 +367,12 @@ const command_t command_list[] = {
       "Follow and print block chain starting at (<track>,<sector>)",
       1, 3,
       chain_cmd },
-    { "copy",
+	{ "chainwrite",
+	  "chainwrite <filename> <track> <sector> [<unit>]",
+	  "Follow and print block chain starting at (<track>,<sector>) to <filename> on the host",
+	  3, 4,
+	  chainwrite_cmd },
+	{ "copy",
       "copy <source1> [<source2> ... <sourceN>] <destination>",
       "Copy `source1' ... `sourceN' into destination.  If N > 1, "
       "`destination'\n must be a simple drive specifier (@n:).",
@@ -2484,6 +2490,101 @@ static int chain_cmd(int nargs, char **args)
 
     return FD_OK;
 }
+
+
+
+/** \brief  Follow and print a block chain and write the data to a file
+ *
+ * \param[in]   nargs   number of arguments
+ * \param[in]   args    argument list
+ *
+ * \return  FD_OK on success, < 0 on failure
+ *
+ * \todo    proper layout, it's a bit ugly now
+ */
+static int chainwrite_cmd(int nargs, char **args)
+{
+	int unit = drive_index + DRIVE_UNIT_MIN;
+	unsigned int track;
+	unsigned int sector;
+	vdrive_t *vdrive;
+	int err;
+	link_t *link;
+	FILE *outFP = 0;
+
+
+
+	/* parse track and sector number */
+	err = parse_track_sector(args[2], args[3], &track, &sector);
+	if (err != FD_OK) {
+		return err;
+	}
+
+	/* get drive index */
+	if (nargs >= 5) {
+		if (arg_to_int(args[4], &unit) < 0) {
+			return FD_BADDEV;
+		}
+		if (check_drive_unit(unit) < 0) {
+			return FD_BADDEV;
+		}
+	}
+
+	/* check drive to see if it's ready */
+	if (check_drive_ready(unit - DRIVE_UNIT_MIN) < 0) {
+		return FD_NOTREADY;
+	}
+
+	outFP = fopen(args[1], "wb");
+
+	/* now check if the (track,sector) is valid for the current image */
+	vdrive = drives[unit - DRIVE_UNIT_MIN];
+
+	/* we keep a list of sectors visited so we can detect cyclic references */
+	link = link_add(NULL, track, sector);
+	do {
+		unsigned char buffer[RAW_BLOCK_SIZE];
+
+		printf("(%2u,%2u) -> ", track, sector);
+		fflush(stdout);
+
+		/* read sector data */
+		err = vdrive_read_sector(vdrive, buffer, track, sector);
+		if (err < 0) {
+			fclose(outFP);
+			return err;
+		}
+		track = buffer[0];
+		sector = buffer[1];
+
+		if (link_find(link, track, sector) != NULL) {
+			printf("cyclic reference found to (%u,%u)!\n", track, sector);
+			fflush(stdout);
+			break;
+		}
+		link = link_add(link, track, sector);
+
+		// Last block?
+		if (track == 0)
+		{
+			fwrite(buffer + 2, 1, sector-1, outFP);
+		}
+		else
+		{
+			fwrite(buffer + 2, 1, 254, outFP);
+		}
+
+	} while (track > 0);
+
+	printf("%u\n", sector);
+
+	/* free list of visited sectors */
+	link_free(link);
+	fclose(outFP);
+
+	return FD_OK;
+}
+
 
 
 /** \brief  Copy one or more files
