@@ -123,3 +123,11 @@
 * going to need an extra "extract file chain using track and sector start" in c1541
 	Copy chain_cmd and add write to file
 	>> chainwrite command added
+
+
+
+
+* Add a command to locate all start block chains, look at all blocks and trace them backwards.
+	This will need a table of where blocks point to, a reverse lookup.
+	Use this to show the "what should be marked as allocated" map.
+	Add the option to automatically save these chains as filenames using the start track/sector and a filename.

@@ -202,6 +202,7 @@ static int gcrpoke_cmd(int nargs, char **args);
 static int cd_cmd(int nargs, char **args);
 static int chain_cmd(int nargs, char **args);
 static int chainwrite_cmd(int nargs, char **args);
+static int recover_cmd(int nargs, char **args);
 static int copy_cmd(int nargs, char **args);
 static int delete_cmd(int nargs, char **args);
 static int entry_cmd(int nargs, char **args);
@@ -372,6 +373,11 @@ const command_t command_list[] = {
 	  "Follow and print block chain starting at (<track>,<sector>) to <filename> on the host",
 	  3, 4,
 	  chainwrite_cmd },
+	{ "recover",
+	  "recover [<filename path using stdc printf formatting>] [<unit>]",
+	  "Search for all file chains and write to <filename> on the host if supplied",
+	  0, 3,
+	  recover_cmd },
 	{ "copy",
       "copy <source1> [<source2> ... <sourceN>] <destination>",
       "Copy `source1' ... `sourceN' into destination.  If N > 1, "
@@ -2581,6 +2587,195 @@ static int chainwrite_cmd(int nargs, char **args)
 	/* free list of visited sectors */
 	link_free(link);
 	fclose(outFP);
+
+	return FD_OK;
+}
+
+
+
+static bool blockWritten[256][256];
+static unsigned int trackBack[256][256];
+static unsigned int sectorBack[256][256];
+static unsigned int trackForward[256][256];
+static unsigned int sectorForward[256][256];
+
+
+static int recover_cmd(int nargs, char **args)
+{
+	int unit = drive_index + DRIVE_UNIT_MIN;
+	unsigned int track;
+	unsigned int sector;
+	vdrive_t *vdrive;
+	int err;
+	link_t *link;
+	char *filenamePath = 0;
+	int dnr = 0;
+
+
+	memset(blockWritten, 0, sizeof(blockWritten));
+	memset(trackBack, 0, sizeof(trackBack));
+	memset(sectorBack, 0, sizeof(sectorBack));
+	memset(trackForward, 0, sizeof(trackForward));
+	memset(sectorForward, 0, sizeof(sectorForward));
+
+	if (nargs >= 2)
+	{
+		filenamePath = args[1];
+	}
+
+	/* get drive index */
+	if (nargs >= 3)
+	{
+		if (arg_to_int(args[2], &unit) < 0)
+		{
+			return FD_BADDEV;
+		}
+		if (check_drive_unit(unit) < 0)
+		{
+			return FD_BADDEV;
+		}
+	}
+
+	dnr = unit - DRIVE_UNIT_MIN;
+
+	if (check_drive_ready(dnr) < 0)
+	{
+		return FD_NOTREADY;
+	}
+
+	vdrive = drives[dnr];
+
+	int blocksFound = 0;
+	for (track = 1; track <= vdrive->num_tracks; track++)
+	{
+		for (sector = 0; sector < 128; sector++)
+		{
+			unsigned char buffer[RAW_BLOCK_SIZE];
+			if ((lasterror = vdrive_read_sector(vdrive, buffer, track, sector)) == 0)
+			{
+				unsigned int trackLink = buffer[0];
+				unsigned int sectorLink = buffer[1];
+				trackForward[track][sector] = trackLink;
+				sectorForward[track][sector] = sectorLink;
+				if (trackLink > 0 && trackLink <= vdrive->num_tracks)
+				{
+					trackBack[trackLink][sectorLink] = track;
+					sectorBack[trackLink][sectorLink] = sector;
+					blocksFound++;
+				}
+				else if (trackLink == 0 && sectorLink > 1)
+				{
+					// The end block, points to itself if it's not already claimed
+					if (trackBack[trackLink][sectorLink] == 0)
+					{
+						trackBack[trackLink][sectorLink] = trackLink;
+						sectorBack[trackLink][sectorLink] = sectorLink;
+					}
+				}
+
+			}
+		}
+		printf("Scanned track: %d Blocks found %d\n", track, blocksFound);
+	}
+
+	int foundFiles = 0;
+	// Now write any found blocks from their head block
+	for (track = 1; track <= vdrive->num_tracks; track++)
+	{
+		for (sector = 0; sector < 128; sector++)
+		{
+//			printf("Consider (%d , %d)\n", track, sector);
+
+			// Scan backwards as far as possible, for any interesting blocks
+			unsigned int trackLink = track;
+			unsigned int sectorLink = sector;
+			bool writeLinkHead = false;
+			while (!blockWritten[trackLink][sectorLink] && trackBack[trackLink][sectorLink] > 0)
+			{
+				writeLinkHead = true;
+
+				// Stops this block from being considered again
+				blockWritten[trackLink][sectorLink] = true;
+
+				unsigned int newtrackLink = trackBack[trackLink][sectorLink];
+				unsigned int newsectorLink = sectorBack[trackLink][sectorLink];
+
+				// If it's the end block, without any other reference except to itself, then don't search back
+				if (newtrackLink > 0 && !blockWritten[newtrackLink][newsectorLink] && !(newtrackLink == trackLink && newsectorLink == sectorLink))
+				{
+					trackLink = newtrackLink;
+					sectorLink = newsectorLink;
+				}
+			}
+			// If it's already the head...
+			if (!writeLinkHead && !blockWritten[trackLink][sectorLink])
+			{
+				if (trackForward[trackLink][sectorLink] > 0 && trackForward[trackLink][sectorLink] <= vdrive->num_tracks)
+				{
+					writeLinkHead = true;
+					blockWritten[trackLink][sectorLink] = true;
+				}
+				else if (trackForward[trackLink][sectorLink] == 0 && sectorForward[trackLink][sectorLink] > 0)
+				{
+					writeLinkHead = true;
+					blockWritten[trackLink][sectorLink] = true;
+				}
+			}
+
+			if (writeLinkHead && trackLink > 0)
+			{
+				foundFiles++;
+
+				printf("File chain head found track sector: (%d , %d) ->", trackLink, sectorLink);
+
+				if (filenamePath)
+				{
+					// Fake some args for chainwrite_cmd
+					char arg1[MAX_PATH];
+					sprintf(arg1, filenamePath, trackLink, sectorLink);
+					char arg2[32];
+					char arg3[32];
+					char arg4[32];
+					sprintf(arg2, "%d", trackLink);
+					sprintf(arg3, "%d", sectorLink);
+					sprintf(arg4, "%d", unit);
+					char *theArgs[6] = { "foo" , arg1 , arg2 , arg3, arg4 , 0 };
+					chainwrite_cmd(5, theArgs);
+				}
+
+				// Mark all found blocks as written
+				while (trackLink > 0 && trackLink <= vdrive->num_tracks)
+				{
+					blockWritten[trackLink][sectorLink] = true;
+
+					unsigned int newtrackLink = trackForward[trackLink][sectorLink];
+					unsigned int newsectorLink = sectorForward[trackLink][sectorLink];
+
+					// Stops cyclic links
+					trackForward[trackLink][sectorLink] = 0;
+					sectorForward[trackLink][sectorLink] = 0;
+					trackBack[trackLink][sectorLink] = 0;
+					sectorBack[trackLink][sectorLink] = 0;
+
+					trackLink = newtrackLink;
+					sectorLink = newsectorLink;
+
+					if (trackLink > 0)
+					{
+						printf(" (%d , %d) ->", trackLink, sectorLink);
+					}
+					else
+					{
+						printf(" %d", sectorLink);
+					}
+				}
+
+				printf("\n");
+			}
+		}
+	}
+
+	printf("Found %d files\n", foundFiles);
 
 	return FD_OK;
 }
