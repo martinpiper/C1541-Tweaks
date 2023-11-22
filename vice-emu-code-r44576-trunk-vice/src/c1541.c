@@ -2610,6 +2610,7 @@ static int recover_cmd(int nargs, char **args)
 	link_t *link;
 	char *filenamePath = 0;
 	int dnr = 0;
+	image_contents_t *listing;
 
 
 	memset(blockWritten, 0, sizeof(blockWritten));
@@ -2644,6 +2645,8 @@ static int recover_cmd(int nargs, char **args)
 	}
 
 	vdrive = drives[dnr];
+
+	listing = diskcontents_block_read(vdrive, 0);
 
 	int blocksFound = 0;
 	for (track = 1; track <= vdrive->num_tracks; track++)
@@ -2722,25 +2725,46 @@ static int recover_cmd(int nargs, char **args)
 				}
 			}
 
+			bool ignoreWrite = false;
+
+			// Ignore any active files in tyhe directory
+			if (listing != NULL && writeLinkHead && trackLink > 0)
+			{
+				image_contents_file_list_t *element = listing->file_list;
+				while (element != NULL)
+				{
+					// Only filter PRG files that are correct, ignore deletd and files etc
+					if (element->type[1] == 'P' && element->type[0] == ' ' && element->firstTrack == trackLink && element->firstSector == sectorLink)
+					{
+						ignoreWrite = true;
+						break;
+					}
+					element = element->next;
+				}
+			}
+
 			if (writeLinkHead && trackLink > 0)
 			{
-				foundFiles++;
-
-				printf("File chain head found track sector: (%d , %d) ->", trackLink, sectorLink);
-
-				if (filenamePath)
+				if (!ignoreWrite)
 				{
-					// Fake some args for chainwrite_cmd
-					char arg1[MAX_PATH];
-					sprintf(arg1, filenamePath, trackLink, sectorLink);
-					char arg2[32];
-					char arg3[32];
-					char arg4[32];
-					sprintf(arg2, "%d", trackLink);
-					sprintf(arg3, "%d", sectorLink);
-					sprintf(arg4, "%d", unit);
-					char *theArgs[6] = { "foo" , arg1 , arg2 , arg3, arg4 , 0 };
-					chainwrite_cmd(5, theArgs);
+					foundFiles++;
+
+					printf("File chain head found track sector: (%d , %d) ->", trackLink, sectorLink);
+
+					if (filenamePath)
+					{
+						// Fake some args for chainwrite_cmd
+						char arg1[MAX_PATH];
+						sprintf(arg1, filenamePath, trackLink, sectorLink);
+						char arg2[32];
+						char arg3[32];
+						char arg4[32];
+						sprintf(arg2, "%d", trackLink);
+						sprintf(arg3, "%d", sectorLink);
+						sprintf(arg4, "%d", unit);
+						char *theArgs[6] = { "foo" , arg1 , arg2 , arg3, arg4 , 0 };
+						chainwrite_cmd(5, theArgs);
+					}
 				}
 
 				// Mark all found blocks as written
@@ -2776,6 +2800,11 @@ static int recover_cmd(int nargs, char **args)
 	}
 
 	printf("Found %d files\n", foundFiles);
+
+	if (listing != NULL)
+	{
+		image_contents_destroy(listing);
+	}
 
 	return FD_OK;
 }
@@ -4082,7 +4111,7 @@ static int list_cmd(int nargs, char **args)
                             type, pattern)) {
                     lib_free(string);
                     string = image_contents_file_to_string(element, IMAGE_CONTENTS_STRING_ASCII);
-                    printf("%s\n", string);
+                    printf("%s   %d:%d\n", string, element->firstTrack, element->firstSector);
                     fflush(stdout);
                 }
                 lib_free(string);

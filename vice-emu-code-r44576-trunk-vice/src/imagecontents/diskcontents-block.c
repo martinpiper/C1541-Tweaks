@@ -162,6 +162,9 @@ image_contents_t *diskcontents_block_read(vdrive_t *vdrive, int part)
                 new_list->size = ((int)p[SLOT_NR_BLOCKS]
                                   + ((int)p[SLOT_NR_BLOCKS + 1] << 8));
 
+				new_list->firstTrack = (unsigned int)p[SLOT_FIRST_TRACK];
+				new_list->firstSector = (unsigned int)p[SLOT_FIRST_SECTOR];
+
                 for (i = 0; i < IMAGE_CONTENTS_FILE_NAME_LEN; i++) {
                     new_list->name[i] = p[SLOT_NAME_OFFSET + i];
                 }

@@ -131,3 +131,16 @@
 	This will need a table of where blocks point to, a reverse lookup.
 	Use this to show the "what should be marked as allocated" map.
 	Add the option to automatically save these chains as filenames using the start track/sector and a filename.
+
+
+
+
+
+* Recover command ignores active files in the directory.
+	Ignores what the "extract" command would write.
+	>> Added: image_contents_file_list_s::firstTrack and firstSector
+
+
+
+* list_cmd to display the track/sector
+

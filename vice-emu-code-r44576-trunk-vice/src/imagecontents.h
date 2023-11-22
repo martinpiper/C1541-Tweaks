@@ -53,6 +53,9 @@ struct image_contents_file_list_s {
     unsigned int size;  /**< size of the file */
 
     struct image_contents_file_list_s *prev, *next; /**< linked list pointers */
+
+	unsigned int firstTrack;
+	unsigned int firstSector;
 };
 typedef struct image_contents_file_list_s image_contents_file_list_t;
 
